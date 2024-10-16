@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepTest4all - HRR 측정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            padding: 12px 20px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        #startButton, #resetButton {
+            margin-bottom: 20px;
+        }
+
+        #timerDisplay {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #resetButton {
+            display: none;
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>2-5분 휴식 후 HRR 측정</h1>
+        <p>운동 후 2-5분 휴식 후 심박수를 입력하세요. 타이머는 1분 후 자동으로 멈춥니다.</p>
+
+        <h3 id="timerDisplay">01:00</h3>
+        <button id="startButton">1분 타이머 시작</button>
+        <button id="resetButton">다시 하기</button>
+
+        <input type="number" id="restHRInput" placeholder="휴식 후 심박수 (60초)" />
+
+        <button id="calculateButton">VO2max 계산</button>
+    </div>
+
+    <script>
+        let timer;
+        let timeRemaining = 60;
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startButton = document.getElementById('startButton');
+        const resetButton = document.getElementById('resetButton');
+
+        // 타이머 시작 함수
+        function startTimer() {
+            clearInterval(timer);
+            timeRemaining = 60;
+            updateTimerDisplay();
+
+            timer = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
+                    timerDisplay.textContent = "시간 종료!";
+                }
+            }, 1000);
+        }
+
+        // 타이머 업데이트 함수
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timerDisplay.textContent = `0${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        // 시작 버튼 클릭 이벤트
+        startButton.addEventListener('click', () => {
+            startTimer();
+            startButton.style.display = 'none';
+            resetButton.style.display = 'block';
+        });
+
+        // 다시하기 버튼 클릭 시 타이머 리셋
+        resetButton.addEventListener('click', () => {
+            clearInterval(timer);
+            timerDisplay.textContent = "01:00";
+            resetButton.style.display = 'none';
+            startButton.style.display = 'block';
+        });
+
+        // VO2max 계산
+        document.getElementById('calculateButton').addEventListener('click', () => {
+            const restHR = parseFloat(document.getElementById('restHRInput').value);
+            const postHR = parseFloat(localStorage.getItem('postHR')); // 타이머 페이지에서 저장한 운동 직후 심박수
+            const gender = parseInt(localStorage.getItem('sex')); // 성별
+            const paLevel = parseInt(localStorage.getItem('PAlevel')); // 신체 활동 수준
+
+            if (isNaN(restHR) || restHR <= 0) {
+                alert("유효한 휴식 후 심박수를 입력하세요.");
+                return;
+            }
+
+            // HRR60 계산 (운동 직후 심박수 - 휴식 후 심박수)
+            const hrr60 = postHR - restHR;
+
+            // VO2max 공식 적용
+            const vo2max = 17.105 + 0.260 * hrr60 + 8.563 * gender + 4.097 * paLevel;
+
+            // VO2max 값을 로컬 스토리지에 저장
+            localStorage.setItem('vo2max', vo2max);
+
+            // 결과 페이지로 이동
+            window.location.href = 'steptest_recommendation.html';
+        });
+    </script>
+
+</body>
+</html>
