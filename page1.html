@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAR-Q+ 설문지 - 페이지 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin: 20px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>2023 PAR-Q+ 설문지</h1>
+        <form id="parqForm">
+            <div class="question">
+                1) 심장 질환 또는 고혈압 진단을 받은 적이 있습니까?<br>
+                <input type="radio" name="q1" value="yes"> 예
+                <input type="radio" name="q1" value="no"> 아니오
+            </div>
+            <div class="question">
+                2) 안정 시 또는 신체 활동 중 가슴 통증을 느낀 적이 있습니까?<br>
+                <input type="radio" name="q2" value="yes"> 예
+                <input type="radio" name="q2" value="no"> 아니오
+            </div>
+            <div class="question">
+                3) 어지러움을 느끼거나 지난 12개월 동안 의식을 잃은 적이 있습니까?<br>
+                <input type="radio" name="q3" value="yes"> 예
+                <input type="radio" name="q3" value="no"> 아니오
+            </div>
+            <div class="question">
+                4) 다른 만성 질환을 앓고 있습니까?<br>
+                <input type="radio" name="q4" value="yes"> 예
+                <input type="radio" name="q4" value="no"> 아니오
+            </div>
+            <div class="question">
+                5) 만성 질환으로 약물 복용 중입니까?<br>
+                <input type="radio" name="q5" value="yes"> 예
+                <input type="radio" name="q5" value="no"> 아니오
+            </div>
+            <div class="question">
+                6) 뼈, 관절, 근육 또는 연조직 부상으로 인해 운동이 제한될 수 있습니까?<br>
+                <input type="radio" name="q6" value="yes"> 예
+                <input type="radio" name="q6" value="no"> 아니오
+            </div>
+            <div class="question">
+                7) 의사가 의학적으로 감독된 신체 활동을 해야 한다고 조언한 적이 있습니까?<br>
+                <input type="radio" name="q7" value="yes"> 예
+                <input type="radio" name="q7" value="no"> 아니오
+            </div>
+
+            <!-- 제출 버튼 -->
+            <button type="button" id="submitBtn">제출</button>
+            <div class="error" id="errorMessage" style="display: none;"></div>
+        </form>
+    </div>
+
+    <script>
+        // 페이지 로드 시 로컬 스토리지에 저장된 답변 삭제
+        window.onload = function() {
+            localStorage.removeItem('answeredYes');  // 기존 값 삭제
+        };
+
+        // 제출 버튼을 눌렀을 때 페이지 이동 처리
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const form = document.getElementById('parqForm');
+            let answeredYes = false;  // "예"에 대한 플래그를 기본적으로 false로 설정
+            let allAnswered = true;
+            let unansweredQuestions = [];  // 응답하지 않은 질문 번호를 저장할 배열
+
+            // 모든 질문에 대해 답변 확인
+            for (let i = 1; i <= 7; i++) {
+                const answer = form['q' + i].value;
+                if (!answer) {
+                    allAnswered = false;  // 질문에 답하지 않은 경우
+                    unansweredQuestions.push(i);  // 응답하지 않은 질문 번호를 배열에 추가
+                }
+                if (answer === 'yes') {
+                    answeredYes = true;  // 하나라도 "예"가 있으면 플래그를 true로 설정
+                }
+            }
+
+            // 모든 질문에 답변하지 않았다면 경고 메시지를 표시하고, 남은 질문 번호를 출력
+            if (!allAnswered) {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = `다음 질문에 답변해 주세요: ${unansweredQuestions.join(', ')}번 질문`;
+                return;
+            } else {
+                document.getElementById('errorMessage').style.display = 'none';
+            }
+
+            // 답변을 로컬 스토리지에 저장
+            localStorage.setItem('answeredYes', JSON.stringify(answeredYes));
+
+            // "예"에 대한 플래그가 true면 두 번째 페이지(추가 질문)로 이동
+            if (answeredYes) {
+                window.location.href = 'page2.html';
+            } else {
+                // 모두 "아니오"면 네 번째 페이지로 이동
+                window.location.href = 'page5.html';
+            }
+        });
+    </script>
+
+</body>
+</html>
+

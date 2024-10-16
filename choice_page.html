@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step4all - 테스트 소개</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px; /* 컨테이너의 너비 */
+            height: 600px; /* 컨테이너의 높이 설정 */
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* 상대 위치를 기준으로 버튼 배치 */
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        button {
+            display: block;
+            padding: 12px 20px;
+            margin: 20px auto;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 22px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+
+        /* 홈으로 돌아가기 버튼을 컨테이너 안쪽 하단에 고정 */
+        #homeButton {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #homeButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Step4all 테스트</h1>
+
+        <!-- "Step4all 테스트란?" 섹션 -->
+        <div class="section" id="aboutSection">
+            <h2>Step4all 테스트란?</h2>
+            <p>Step4all 테스트에 대한 더 자세한 설명을 보려면 아래 버튼을 클릭하세요.</p>
+            <button id="infoButton">Step4all 설명 보기</button>
+        </div>
+
+        <!-- "Step4all 시작하기" 섹션 -->
+        <div class="section" id="startSection">
+            <h2>Step4all 시작하기</h2>
+            <p>Step4all 테스트를 시작하려면 아래 버튼을 클릭하세요. 단계별 지침에 따라 진행하고, 심박수를 측정하여 VO2max를 계산할 수 있습니다.</p>
+            <button id="startTestButton">Step4all 테스트 시작</button>
+        </div>
+
+        <!-- 홈으로 돌아가기 버튼 (컨테이너 내부 하단 고정) -->
+        <button id="homeButton">홈으로 돌아가기</button>
+    </div>
+
+    <script>
+        // Step4all 설명 페이지로 이동
+        document.getElementById('infoButton').addEventListener('click', function() {
+            window.location.href = 'information_steptest.html'; // 설명 페이지로 리디렉션
+        });
+
+        // Step4all 테스트 페이지로 이동
+        document.getElementById('startTestButton').addEventListener('click', function() {
+            window.location.href = 'steptest_input.html'; // 입력 페이지로 리디렉션
+        });
+
+        // 홈으로 돌아가기 버튼 동작
+        document.getElementById('homeButton').addEventListener('click', function() {
+            window.location.href = 'index.html'; // 홈페이지로 리디렉션
+        });
+    </script>
+
+</body>
+</html>

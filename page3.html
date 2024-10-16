@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAR-Q+ 설문지 - 페이지 3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto; /* 세로 스크롤 활성화 */
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .sub-question {
+            margin-left: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin: 20px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PAR-Q+ 설문지 - 후속 질문2</h1>
+        <form id="parqForm3">
+            <div class="question">
+                6) 정신 건강 문제 또는 학습 장애가 있습니까?<br>
+                <input type="radio" name="q6" value="yes" onclick="showSubQuestions('subQ6')"> 예
+                <input type="radio" name="q6" value="no" onclick="hideSubQuestions('subQ6')"> 아니오
+            </div>
+            <div id="subQ6" class="hidden">
+                <div class="sub-question">
+                    6a) 약물 또는 기타 의사 처방 치료로 상태를 조절하는 데 어려움이 있습니까?<br>
+                    <input type="radio" name="q6a" value="yes"> 예
+                    <input type="radio" name="q6a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    6b) 다운 증후군이 있으며, 신경 또는 근육에 영향을 미치는 허리 문제를 겪고 있습니까?<br>
+                    <input type="radio" name="q6b" value="yes"> 예
+                    <input type="radio" name="q6b" value="no"> 아니오
+                </div>
+            </div>
+
+            <div class="question">
+                7) 호흡기 질환이 있습니까?<br>
+                <input type="radio" name="q7" value="yes" onclick="showSubQuestions('subQ7')"> 예
+                <input type="radio" name="q7" value="no" onclick="hideSubQuestions('subQ7')"> 아니오
+            </div>
+            <div id="subQ7" class="hidden">
+                <div class="sub-question">
+                    7a) 약물 또는 기타 의사 처방 치료로 상태를 조절하는 데 어려움이 있습니까?<br>
+                    <input type="radio" name="q7a" value="yes"> 예
+                    <input type="radio" name="q7a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    7b) 의사가 산소포화도가 휴식 시 또는 운동 중에 낮다고 진단한 적이 있습니까?<br>
+                    <input type="radio" name="q7b" value="yes"> 예
+                    <input type="radio" name="q7b" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    7c) 천식이 있는 경우, 최근 일주일 내에 가슴 답답함, 쌕쌕거림, 호흡 곤란 또는 지속적인 기침을 경험한 적이 있습니까?<br>
+                    <input type="radio" name="q7c" value="yes"> 예
+                    <input type="radio" name="q7c" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    7d) 의사가 폐혈관 내 고혈압이 있다고 말한 적이 있습니까?<br>
+                    <input type="radio" name="q7d" value="yes"> 예
+                    <input type="radio" name="q7d" value="no"> 아니오
+                </div>
+            </div>
+
+            <div class="question">
+                8) 척수 손상이 있습니까?<br>
+                <input type="radio" name="q8" value="yes" onclick="showSubQuestions('subQ8')"> 예
+                <input type="radio" name="q8" value="no" onclick="hideSubQuestions('subQ8')"> 아니오
+            </div>
+            <div id="subQ8" class="hidden">
+                <div class="sub-question">
+                    8a) 약물 또는 기타 의사 처방 치료로 상태를 조절하는 데 어려움이 있습니까?<br>
+                    <input type="radio" name="q8a" value="yes"> 예
+                    <input type="radio" name="q8a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    8b) 고혈압으로 인한 현기증이나 두통을 유발하는 심각한 혈압 변동을 경험한 적이 있습니까?<br>
+                    <input type="radio" name="q8b" value="yes"> 예
+                    <input type="radio" name="q8b" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    8c) 의사가 자율 신경 반사 장애(고혈압 증후군)로 인해 고혈압 발작을 겪고 있다고 진단한 적이 있습니까?<br>
+                    <input type="radio" name="q8c" value="yes"> 예
+                    <input type="radio" name="q8c" value="no"> 아니오
+                </div>
+            </div>
+
+            <div class="question">
+                9) 뇌졸중을 경험한 적이 있습니까?<br>
+                <input type="radio" name="q9" value="yes" onclick="showSubQuestions('subQ9')"> 예
+                <input type="radio" name="q9" value="no" onclick="hideSubQuestions('subQ9')"> 아니오
+            </div>
+            <div id="subQ9" class="hidden">
+                <div class="sub-question">
+                    9a) 약물 또는 기타 의사 처방 치료로 상태를 조절하는 데 어려움이 있습니까?<br>
+                    <input type="radio" name="q9a" value="yes"> 예
+                    <input type="radio" name="q9a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    9b) 걷거나 움직이는 데 장애가 있습니까?<br>
+                    <input type="radio" name="q9b" value="yes"> 예
+                    <input type="radio" name="q9b" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    9c) 최근 6개월 내에 뇌졸중이나 신경 또는 근육 기능에 장애를 경험한 적이 있습니까?<br>
+                    <input type="radio" name="q9c" value="yes"> 예
+                    <input type="radio" name="q9c" value="no"> 아니오
+                </div>
+            </div>
+
+            <div class="question">
+                10) 위에 나열되지 않은 기타 의료 상태가 있습니까, 또는 두 개 이상의 의료 상태가 있습니까?<br>
+                <input type="radio" name="q10" value="yes" onclick="showSubQuestions('subQ10')"> 예
+                <input type="radio" name="q10" value="no" onclick="hideSubQuestions('subQ10')"> 아니오
+            </div>
+            <div id="subQ10" class="hidden">
+                 10a) 지난 12개월 내에 머리 부상으로 인해 기절하거나 의식을 잃은 적이 있습니까, 또는 진단받은 뇌진탕이 있습니까?<br>
+                <input type="radio" name="q10a" value="yes"> 예
+                <input type="radio" name="q10a" value="no"> 아니오
+            </div>
+            <div id="subQ10" class="hidden">
+                10b) 목록에 나열되지 않은 의료 상태(예: 간질, 신경계 질환, 신장 문제)가 있습니까?<br>
+                <input type="radio" name="q10b" value="yes"> 예
+                <input type="radio" name="q10b" value="no"> 아니오
+            </div>
+            <div id="subQ10" class="hidden">
+                10c) 두 개 이상의 의료 상태를 현재 겪고 있습니까?<br>
+                <input type="radio" name="q10c" value="yes"> 예
+                <input type="radio" name="q10c" value="no"> 아니오
+            </div>
+
+            <button type="button" id="backBtn">이전 페이지로</button>
+            <button type="button" id="finishBtn">결과 보기</button>
+            <div class="error" id="errorMessage" style="display: none;"></div>
+        </form>
+    </div>
+
+    <script>
+        function showSubQuestions(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function hideSubQuestions(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // 이전 답변 불러오기
+        window.onload = function() {
+            const form = document.getElementById('parqForm3');
+            for (let i = 6; i <= 10; i++) {
+                const storedValue = localStorage.getItem('q' + i);
+                if (storedValue) {
+                    form['q' + i].value = storedValue;
+                }
+            }
+        };
+
+        // 답변 저장
+        document.getElementById('backBtn').addEventListener('click', function() {
+            const form = document.getElementById('parqForm3');
+            for (let i = 6; i <= 10; i++) {
+                localStorage.setItem('q' + i, form['q' + i].value);
+            }
+            window.location.href = 'page2.html';  // 두 번째 페이지로 이동
+        });
+
+        document.getElementById('finishBtn').addEventListener('click', function() {
+            const form = document.getElementById('parqForm3');
+            let allAnswered = true;
+            let unansweredQuestions = [];  // 응답하지 않은 질문 번호를 저장할 배열
+            let answeredYes = JSON.parse(localStorage.getItem('answeredYes')) || false; // 첫 번째와 두 번째 페이지의 값을 가져옴
+
+            // 주 질문(6~10)만 확인
+            for (let i = 6; i <= 10; i++) {
+                const answer = form['q' + i].value;
+                if (!answer) {
+                    allAnswered = false;
+                    unansweredQuestions.push(i + '번 질문을 다시 확인해 주세요.');
+                }
+                
+                if (answeredYes === true) {
+                    if (answer === 'yes') {
+                    answeredYes = true;  // 하나라도 "예"가 있으면 true로 설정
+                }
+                }
+
+                if (answeredYes === false) {
+                    if (answer === 'yes') {
+                    answeredYes = true;  // 하나라도 "예"가 있으면 true로 설정
+                }
+                }
+                // 각 질문 값을 로컬 스토리지에 저장
+                localStorage.setItem('q' + i, answer);
+            }
+
+            // 모든 질문에 답변하지 않았다면 경고 메시지를 표시하고, 남은 질문 번호를 출력
+            if (!allAnswered) {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = unansweredQuestions.join('\n');
+                return;
+            } else {
+                document.getElementById('errorMessage').style.display = 'none';
+            }
+
+            // 로컬 스토리지에 업데이트된 answeredYes 값을 저장
+            localStorage.setItem('answeredYes', JSON.stringify(answeredYes));
+
+            // 모든 질문에 답변했다면 결과 페이지로 이동
+            window.location.href = 'page4.html';
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+

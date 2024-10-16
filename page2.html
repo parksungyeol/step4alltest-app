@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAR-Q+ 설문지 - 페이지 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .sub-question {
+            margin-left: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin: 20px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PAR-Q+ 설문지 - 후속 질문1</h1>
+        <form id="parqForm2">
+            <div class="question">
+                1) 관절염, 골다공증 또는 허리 문제가 있습니까?<br>
+                <input type="radio" name="q1" value="yes" onclick="showSubQuestions('subQ1')"> 예
+                <input type="radio" name="q1" value="no" onclick="hideSubQuestions('subQ1')"> 아니오
+            </div>
+            <div id="subQ1" class="hidden">
+                <div class="sub-question">
+                    1a) 약물 또는 기타 의사 처방 치료로 상태를 조절하는 데 어려움이 있습니까?<br>
+                    <input type="radio" name="q1a" value="yes"> 예
+                    <input type="radio" name="q1a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    1b) 관절 문제로 인한 통증이 있습니까?<br>
+                    <input type="radio" name="q1b" value="yes"> 예
+                    <input type="radio" name="q1b" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    1c) 3개월 이상 스테로이드 주사 또는 경구 스테로이드 복용을 한 적이 있습니까?<br>
+                    <input type="radio" name="q1c" value="yes"> 예
+                    <input type="radio" name="q1c" value="no"> 아니오
+                </div>
+            </div>
+
+            <div class="question">
+                2) 현재 암을 앓고 있습니까?<br>
+                <input type="radio" name="q2" value="yes" onclick="showSubQuestions('subQ2')"> 예
+                <input type="radio" name="q2" value="no" onclick="hideSubQuestions('subQ2')"> 아니오
+            </div>
+            <div id="subQ2" class="hidden">
+                <div class="sub-question">
+                    2a) 암의 종류에 폐/기관지, 다발성 골수종(뼈와 머리 또는 목의 암)이 포함됩니까?<br>
+                    <input type="radio" name="q2a" value="yes"> 예
+                    <input type="radio" name="q2a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    2b) 현재 항암 치료(화학요법 또는 방사선 치료)를 받고 있습니까?<br>
+                    <input type="radio" name="q2b" value="yes"> 예
+                    <input type="radio" name="q2b" value="no"> 아니오
+                </div>
+            </div>
+
+            <div class="question">
+                3) 심장 질환이나 심혈관 질환이 있습니까?<br>
+                <input type="radio" name="q3" value="yes" onclick="showSubQuestions('subQ3')"> 예
+                <input type="radio" name="q3" value="no" onclick="hideSubQuestions('subQ3')"> 아니오
+            </div>
+            <div id="subQ3" class="hidden">
+                <div class="sub-question">
+                    3a) 약물 또는 기타 의사 처방 치료로 상태를 조절하는 데 어려움이 있습니까?<br>
+                    <input type="radio" name="q3a" value="yes"> 예
+                    <input type="radio" name="q3a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    3b) 약물 관리가 필요한 부정맥이 있습니까?<br>
+                    <input type="radio" name="q3b" value="yes"> 예
+                    <input type="radio" name="q3b" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    3c) 만성 심부전을 앓고 있습니까?<br>
+                    <input type="radio" name="q3c" value="yes"> 예
+                    <input type="radio" name="q3c" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    3d) 관상동맥 질환이 있으며, 최근 2개월 동안 규칙적인 신체 활동을 하지 않았습니까?<br>
+                    <input type="radio" name="q3d" value="yes"> 예
+                    <input type="radio" name="q3d" value="no"> 아니오
+                </div>
+            </div>
+
+            <div class="question">
+                4) 현재 고혈압이 있습니까?<br>
+                <input type="radio" name="q4" value="yes" onclick="showSubQuestions('subQ4')"> 예
+                <input type="radio" name="q4" value="no" onclick="hideSubQuestions('subQ4')"> 아니오
+            </div>
+            <div id="subQ4" class="hidden">
+                <div class="sub-question">
+                    4a) 약물 또는 기타 의사 처방 치료로 상태를 조절하는 데 어려움이 있습니까?<br>
+                    <input type="radio" name="q4a" value="yes"> 예
+                    <input type="radio" name="q4a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    4b) 160/90 mmHg 이상의 안정적인 혈압을 약물로 관리하고 있습니까?<br>
+                    <input type="radio" name="q4b" value="yes"> 예
+                    <input type="radio" name="q4b" value="no"> 아니오
+                </div>
+            </div>
+
+            <div class="question">
+                5) 대사 질환이 있습니까?<br>
+                <input type="radio" name="q5" value="yes" onclick="showSubQuestions('subQ5')"> 예
+                <input type="radio" name="q5" value="no" onclick="hideSubQuestions('subQ5')"> 아니오
+            </div>
+            <div id="subQ5" class="hidden">
+                <div class="sub-question">
+                    5a) 음식, 약물, 또는 기타 치료법으로 혈당을 조절하는 데 어려움이 있습니까?<br>
+                    <input type="radio" name="q5a" value="yes"> 예
+                    <input type="radio" name="q5a" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    5b) 저혈당 증상을 겪은 적이 있습니까?<br>
+                    <input type="radio" name="q5b" value="yes"> 예
+                    <input type="radio" name="q5b" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    5c) 당뇨 합병증을 겪은 적이 있습니까?<br>
+                    <input type="radio" name="q5c" value="yes"> 예
+                    <input type="radio" name="q5c" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    5d) 기타 대사 상태가 있습니까?<br>
+                    <input type="radio" name="q5d" value="yes"> 예
+                    <input type="radio" name="q5d" value="no"> 아니오
+                </div>
+                <div class="sub-question">
+                    5e) 앞으로 고강도 운동을 할 계획이 있습니까?<br>
+                    <input type="radio" name="q5e" value="yes"> 예
+                    <input type="radio" name="q5e" value="no"> 아니오
+                </div>
+            </div>
+
+            <button type="button" id="backBtn">이전 페이지</button>
+            <button type="button" id="nextBtn">다음 페이지</button>
+            <div class="error" id="errorMessage" style="display: none;"></div>
+        </form>
+    </div>
+
+    <script>
+        function showSubQuestions(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function hideSubQuestions(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function saveAnswers() {
+            const form = document.getElementById('parqForm2');
+            let answeredYes = JSON.parse(localStorage.getItem('answeredYes')) || false; // 첫 페이지의 값을 가져옴
+            let allNo = true; // 모두 아니오 체크 여부
+
+            // 모든 질문에 대해 답변 확인 및 저장
+            for (let i = 1; i <= 5; i++) {
+                const answer = form['q' + i].value;
+                if (answer === 'yes') {
+                    answeredYes = true;  // "예"가 있으면 true로 설정
+                    allNo = false;  // "아니오"가 아니므로 false로 변경
+                }
+                // 각 질문에 대한 답변을 로컬 스토리지에 저장
+                localStorage.setItem('q' + i, answer);
+            }
+
+            // 모두 "아니오"면 answeredYes를 false로 변경
+            if (allNo) {
+                answeredYes = false;
+            }
+
+            // 로컬 스토리지에 업데이트된 answeredYes 값을 저장
+            localStorage.setItem('answeredYes', JSON.stringify(answeredYes));
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            const form = document.getElementById('parqForm2');
+            let allAnswered = true;
+            let unansweredQuestions = [];  // 응답하지 않은 질문 번호를 저장할 배열
+
+            // 모든 질문에 대해 답변 확인
+            for (let i = 1; i <= 5; i++) {
+                const answer = form['q' + i].value;
+                if (!answer) {
+                    allAnswered = false;  // 질문에 답하지 않은 경우
+                    unansweredQuestions.push(i);  // 응답하지 않은 질문 번호를 배열에 추가
+                }
+            }
+
+            // 모든 질문에 답변하지 않았다면 경고 메시지를 표시하고, 남은 질문 번호를 출력
+            if (!allAnswered) {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = `다음 질문에 답변해 주세요: ${unansweredQuestions.join(', ')}번 질문`;
+                return;
+            } else {
+                document.getElementById('errorMessage').style.display = 'none';
+            }
+
+            // 답변 저장
+            saveAnswers();
+
+            // 모든 질문에 답변했다면 다음 페이지로 이동
+            window.location.href = 'page3.html';
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function() {
+            // 답변 저장
+            saveAnswers();
+
+            // 이전 페이지로 이동
+            window.location.href = 'page1.html';
+        });
+
+        // 로컬 스토리지에서 답변 불러오기
+        window.onload = function() {
+            const form = document.getElementById('parqForm2');
+            for (let i = 1; i <= 5; i++) {
+                const storedValue = localStorage.getItem('q' + i);
+                if (storedValue) {
+                    form['q' + i].value = storedValue;
+                }
+            }
+        };
+    </script>
+
+</body>
+</html>
+
+

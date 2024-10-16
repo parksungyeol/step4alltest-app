@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepTest4all - 타이머 페이지</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            padding: 12px 20px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        #stopButton {
+            display: none;
+            background-color: #f44336;
+        }
+
+        #restartButton {
+            display: none;
+            background-color: #2196F3;
+        }
+
+        #beatText {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            input, button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <h1>StepTest4all - 타이머</h1>
+        <h3 id="timer">운동을 준비하세요: 10</h3>
+
+        <!-- 비트 텍스트 추가 - 타이머 밑에 위치 -->
+        <p id="beatText"></p>
+
+        <button id="startButton">스텝 테스트 시작</button>
+        <button id="stopButton">스텝 테스트 정지</button>
+        <button id="restartButton">다시 하기</button>
+
+        <p id="message"></p>
+
+        <button id="nextPageButton">다음 페이지로</button>
+
+        <!-- 메트로놈 소리 추가 -->
+        <audio id="metronomeSound" loop>
+            <source src="MetronomeBotBasicClickTrack096.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        let timer;
+        let prepTime = 10; // 준비 시간 10초
+        let exerciseTime = 600;  // 운동 시간 10분 = 600초
+        let timeRemaining = prepTime;
+        const timerDisplay = document.getElementById('timer');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const restartButton = document.getElementById('restartButton');
+        const nextPageButton = document.getElementById('nextPageButton');
+        const message = document.getElementById('message');
+        const metronomeSound = document.getElementById('metronomeSound');
+        const beatText = document.getElementById('beatText');
+        let beatInterval;
+
+        const beats = ['up 1', 'up 2', 'down 1', 'down 2'];
+        let currentBeat = 0;
+
+        // 타이머 표시 업데이트 함수
+        function updateTimerDisplay() {
+            if (timeRemaining > 0) {
+                timerDisplay.textContent = `운동을 준비하세요: ${timeRemaining}`;
+            } else {
+                timerDisplay.textContent = "테스트 중...";
+            }
+        }
+
+        // 준비 시간 타이머 시작
+        function startPrepTimer() {
+            clearInterval(timer);
+            timeRemaining = prepTime;
+            updateTimerDisplay();
+
+            timer = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
+                    startExerciseTimer();
+                }
+            }, 1000);
+        }
+
+        // 비트 텍스트 업데이트 함수
+        function updateBeatText() {
+            beatText.textContent = beats[currentBeat];
+            currentBeat = (currentBeat + 1) % beats.length;  // 비트 순환
+        }
+
+        // 스텝 테스트 타이머 시작 (메트로놈 소리 및 비트 텍스트)
+        function startExerciseTimer() {
+            clearInterval(timer);
+            clearInterval(beatInterval); // 기존 비트 인터벌 멈춤
+            currentBeat = 0; // 비트 순서 초기화
+            timeRemaining = exerciseTime;
+            timerDisplay.textContent = `스텝 테스트 타이머: ${Math.floor(timeRemaining / 60)}:00`;
+            message.textContent = '';
+
+            // 메트로놈 소리 재생
+            metronomeSound.play();
+
+            // 96bpm = 60초에 96번이므로 625ms마다 비트 업데이트
+            beatInterval = setInterval(updateBeatText, 625);
+
+            timer = setInterval(() => {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                timerDisplay.textContent = `스텝 테스트 타이머: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+                if (timeRemaining === 360) { // 4분 후 정지 버튼 표시
+                    stopButton.style.display = 'block';
+                }
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
+                    clearInterval(beatInterval); // 비트 텍스트 멈춤
+                    metronomeSound.pause(); // 메트로놈 소리 정지
+                    timerDisplay.textContent = "테스트 완료!";
+                    beatText.textContent = ''; // 비트 텍스트 초기화
+                    stopButton.style.display = 'none';
+                    restartButton.style.display = 'block'; // 다시 하기 버튼 표시
+                }
+            }, 1000);
+        }
+
+        // 정지 버튼 클릭 시 타이머 및 메트로놈 멈춤
+        stopButton.addEventListener('click', () => {
+            clearInterval(timer);
+            clearInterval(beatInterval); // 비트 텍스트 멈춤
+            metronomeSound.pause(); // 메트로놈 소리 정지
+            timerDisplay.textContent = "테스트 완료!";
+            beatText.textContent = ''; // 비트 텍스트 초기화
+            stopButton.style.display = 'none'; // 정지 버튼 숨김
+            restartButton.style.display = 'block'; // 다시 하기 버튼 표시
+        });
+
+        // 다시 하기 버튼 클릭 시 초기 상태로 리셋하고 준비 타이머 다시 시작
+        restartButton.addEventListener('click', () => {
+            clearInterval(timer);  // 기존 타이머 멈추기
+            clearInterval(beatInterval); // 비트 텍스트 멈춤
+            metronomeSound.pause(); // 메트로놈 소리 정지
+            stopButton.style.display = 'none'; // 정지 버튼 숨기기
+            restartButton.style.display = 'none'; // 다시 하기 버튼 숨기기
+            beatText.textContent = ''; // 비트 텍스트 초기화
+            startButton.style.display = 'block'; // 시작 버튼 다시 보이기
+            timeRemaining = prepTime; // 초기 상태로 되돌리기
+            currentBeat = 0; // 비트 순서 초기화
+            updateBeatText(); // 다시 "up 1"으로 시작
+            timerDisplay.textContent = `운동을 준비하세요: 10`; // 초기 상태로 되돌리기
+        });
+
+        // 시작 버튼 클릭 시 준비 타이머 시작
+        startButton.addEventListener('click', () => {
+            startPrepTimer();
+            startButton.style.display = 'none'; // 시작 버튼 숨김
+            restartButton.style.display = 'block'; // 시작하면 바로 다시하기 버튼 생성
+        });
+
+        // 다음 페이지로 이동
+        nextPageButton.addEventListener('click', () => {
+            window.location.href = 'post_HR.html'; // 다음 페이지로 이동
+        });
+    </script>
+
+</body>
+</html>

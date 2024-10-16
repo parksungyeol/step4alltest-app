@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepTest4all - 운동 강도 추천</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fafafa;
+            border: 2px solid #ececec;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .result:hover {
+            transform: scale(1.05);
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin-top: 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* 추가 애니메이션 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .result {
+                font-size: 16px;
+            }
+
+            button {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <h1>운동 강도 추천</h1>
+
+        <!-- VO2max 값을 출력하는 영역 -->
+        <div class="result">
+            <h3>VO2max 값</h3>
+            <p id="vo2maxResult">계산 중...</p>
+        </div>
+
+        <div class="result">
+            <h3>추천 운동 강도</h3>
+            <p id="recommendationResult">계산 중...</p>
+        </div>
+
+        <button id="backButton">홈으로 돌아가기</button>
+    </div>
+
+    <script>
+        // 로컬 스토리지에서 VO2max 값 가져오기
+        const vo2max = parseFloat(localStorage.getItem('vo2max'));
+
+        // VO2max 값 출력
+        if (!vo2max || vo2max <= 0) {
+            document.getElementById('vo2maxResult').textContent = "잘못된 VO2max 값입니다.";
+        } else {
+            document.getElementById('vo2maxResult').textContent = `당신의 VO2max 값은 ${vo2max.toFixed(2)}입니다.`;
+        }
+
+        if (!vo2max || vo2max <= 0) {
+            document.getElementById('recommendationResult').textContent = "잘못된 VO2max 값입니다.";
+        } else {
+            // VO2max의 60%와 80% 구간을 계산
+            const vo2_60 = vo2max * 0.60;
+            const vo2_80 = vo2max * 0.80;
+
+            // 주어진 공식으로 추천 값 계산 (2.4km를 달리는 시간)
+            const recommended_60 = 483 / (vo2_60 - 3.5);
+            const recommended_80 = 483 / (vo2_80 - 3.5);
+
+            // recommended_60과 recommended_80을 페이스(분/km)로 변환
+            const pace_60 = recommended_60 / 2.4; // 2.4km에서 1km로 변환
+            const pace_80 = recommended_80 / 2.4;
+
+            // 페이스를 소수점 이하 두 자리로 변환하여 출력
+            const minutes_60 = Math.floor(pace_60);
+            const seconds_60 = Math.round((pace_60 - minutes_60) * 60);
+
+            const minutes_80 = Math.floor(pace_80);
+            const seconds_80 = Math.round((pace_80 - minutes_80) * 60);
+
+            // 결과를 min/km 형식으로 출력
+            document.getElementById('recommendationResult').textContent = 
+                `추천 페이스는 ${minutes_60}분 ${seconds_60}초/km에서 ${minutes_80}분 ${seconds_80}초/km 사이입니다.`;
+        }
+
+        // 홈으로 돌아가기 버튼
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.location.href = 'index.html'; // 홈 페이지로 이동
+        });
+    </script>
+</body>
+</html>

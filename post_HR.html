@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepTest4all - 타이머 페이지</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            padding: 12px 20px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        #timerDisplay {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #stopButton {
+            display: none;
+            background-color: #f44336;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            input, button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <h1>StepTest4all - 타이머</h1>
+
+        <h3 id="timerDisplay">01:00</h3>
+        <button id="startButton">1분 타이머 시작</button>
+        <button id="resetButton" style="display:none;">다시 하기</button>
+
+        <p>운동 직후 60초 심박수를 입력하세요:</p>
+        <input type="number" id="postHRInput" placeholder="운동 직후 심박수 (60초)" />
+
+        <button id="calculateButton">다음 페이지</button>
+    </div>
+
+    <script>
+        let timer;
+        let timeRemaining = 60;  // 1분 = 60초
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startButton = document.getElementById('startButton');
+        const resetButton = document.getElementById('resetButton');
+        const postHRInput = document.getElementById('postHRInput');
+
+        // 타이머 업데이트 함수
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        // 타이머 시작 함수
+        function startTimer() {
+            clearInterval(timer);
+            timeRemaining = 60;
+            updateTimerDisplay();
+
+            timer = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
+                    timerDisplay.textContent = "시간 종료!";
+                }
+            }, 1000);
+        }
+
+        // 시작 버튼 클릭 이벤트 리스너
+        startButton.addEventListener('click', () => {
+            startTimer();
+            startButton.style.display = 'none';  // 시작 버튼 숨김
+            resetButton.style.display = 'block';  // 다시 하기 버튼 표시
+        });
+
+        // 다시 하기 버튼 클릭 이벤트 리스너
+        resetButton.addEventListener('click', () => {
+            clearInterval(timer);
+            timeRemaining = 60;
+            updateTimerDisplay();
+            startButton.style.display = 'block';  // 시작 버튼 다시 표시
+            resetButton.style.display = 'none';  // 다시 하기 버튼 숨김
+        });
+
+        // calculateButton 클릭 시 이벤트 리스너
+        document.getElementById('calculateButton').addEventListener('click', () => {
+            const postHR = parseFloat(postHRInput.value);
+            const gender = parseInt(localStorage.getItem('sex'));
+            const paLevel = parseInt(localStorage.getItem('PAlevel'));
+
+            // postHR, gender, paLevel 유효성 체크
+            if (isNaN(postHR) || isNaN(gender) || isNaN(paLevel)) {
+                alert("유효한 데이터를 입력하세요.");
+                return;
+            }
+
+            // 운동 직후 심박수를 로컬 스토리지에 저장
+            localStorage.setItem('postHR', postHR);
+
+            // 휴식 후 심박수를 받는 페이지로 이동
+            window.location.href = 'steptest_HRR.html';
+        });
+    </script>
+
+</body>
+</html>
